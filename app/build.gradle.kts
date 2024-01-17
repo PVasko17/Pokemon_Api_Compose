@@ -62,9 +62,6 @@ dependencies {
     implementation(libs.bundles.jetpackNavigation)
     implementation(libs.bundles.materialUi)
 
-//    implementation(libs.hilt.android)
-//    kapt(libs.hilt.android.compiler)
-
     implementation(libs.dagger)
     implementation(libs.material3.android)
     kapt (libs.dagger.compiler)

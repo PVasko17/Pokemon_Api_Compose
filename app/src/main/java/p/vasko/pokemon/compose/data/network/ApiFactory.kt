@@ -3,14 +3,15 @@ package p.vasko.pokemon.compose.data.network
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 class ApiFactory {
     companion object {
-        const val CONNECT_TIMEOUT_MS = 10000L
-        const val WRITE_TIMEOUT_MS = 20000L
-        const val READ_TIMEOUT_MS = 30000L
+        const val CONNECT_TIMEOUT_MS = 5000L
+        const val WRITE_TIMEOUT_MS = 5000L
+        const val READ_TIMEOUT_MS = 5000L
         const val BASE_URL = "https://pokeapi.co/api/v2/"
     }
 
@@ -25,6 +26,7 @@ class ApiFactory {
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
 

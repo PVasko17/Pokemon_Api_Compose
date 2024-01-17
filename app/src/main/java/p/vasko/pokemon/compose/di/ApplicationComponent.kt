@@ -6,6 +6,7 @@ import dagger.Component
 import p.vasko.pokemon.compose.di.annotation.ApplicationScope
 import p.vasko.pokemon.compose.di.modules.DataModule
 import p.vasko.pokemon.compose.di.modules.ViewModelModule
+import p.vasko.pokemon.compose.presentation.ViewModelFactory
 
 @ApplicationScope
 @Component(
@@ -15,6 +16,8 @@ import p.vasko.pokemon.compose.di.modules.ViewModelModule
     ]
 )
 interface ApplicationComponent {
+
+    fun getViewModelFactory(): ViewModelFactory
 
     @Component.Factory
     interface Factory {

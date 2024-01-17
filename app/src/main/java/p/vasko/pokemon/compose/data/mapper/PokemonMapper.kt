@@ -2,10 +2,10 @@ package p.vasko.pokemon.compose.data.mapper
 
 import p.vasko.pokemon.compose.data.model.PokemonDetailsResponse
 import p.vasko.pokemon.compose.data.model.PokemonListResponse
-import p.vasko.pokemon.compose.domain.entity.PokemonAttribute
-import p.vasko.pokemon.compose.domain.entity.PokemonCategory
-import p.vasko.pokemon.compose.domain.entity.PokemonDetails
-import p.vasko.pokemon.compose.domain.entity.PokemonEffect
+import p.vasko.pokemon.compose.domain.entity.PokemonItemAttribute
+import p.vasko.pokemon.compose.domain.entity.PokemonItemCategory
+import p.vasko.pokemon.compose.domain.entity.PokemonItemDetails
+import p.vasko.pokemon.compose.domain.entity.PokemonItemEffect
 import p.vasko.pokemon.compose.domain.entity.PokemonListItem
 import javax.inject.Inject
 
@@ -25,26 +25,25 @@ class PokemonMapper @Inject constructor() {
         }
     }
 
-    fun mapDetailsDtoToEntity(response: PokemonDetailsResponse): PokemonDetails {
+    fun mapDetailsDtoToEntity(response: PokemonDetailsResponse): PokemonItemDetails {
         val englishEffects = response.effects.filter { it.language.name == DEFAULT_LANGUAGE_CODE }
 
-        return PokemonDetails(
+        return PokemonItemDetails(
             id = response.id,
             name = response.name,
             cost = response.cost,
+            imageUrl = response.images.default,
             flingPower = response.flingPower,
             attributes = response.attributes.map {
-                PokemonAttribute(
+                PokemonItemAttribute(
                     name = it.name
                 )
             },
-            categories = response.categories.map {
-                PokemonCategory(
-                    name = it.name
-                )
-            },
+            categories = PokemonItemCategory(
+                name = response.categories.name
+            ),
             effects = englishEffects.map {
-                PokemonEffect(
+                PokemonItemEffect(
                     effect = it.effect,
                     shortEffect = it.shortEffect
                 )

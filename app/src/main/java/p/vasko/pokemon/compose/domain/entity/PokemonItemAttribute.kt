@@ -1,5 +1,5 @@
 package p.vasko.pokemon.compose.domain.entity
 
-data class PokemonAttribute(
+data class PokemonItemAttribute(
     val name: String
 )

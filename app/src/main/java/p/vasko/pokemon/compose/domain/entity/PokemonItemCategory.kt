@@ -1,5 +1,5 @@
 package p.vasko.pokemon.compose.domain.entity
 
-data class PokemonCategory(
+data class PokemonItemCategory(
     val name: String
 )

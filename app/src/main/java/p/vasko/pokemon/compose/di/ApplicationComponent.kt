@@ -19,6 +19,8 @@ interface ApplicationComponent {
 
     fun getViewModelFactory(): ViewModelFactory
 
+    fun getPokemonItemDetailsComponentFactory(): PokemonItemDetailsComponent.Factory
+
     @Component.Factory
     interface Factory {
         fun create(

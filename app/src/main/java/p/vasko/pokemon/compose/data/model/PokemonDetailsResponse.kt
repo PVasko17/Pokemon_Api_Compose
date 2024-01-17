@@ -7,8 +7,9 @@ data class PokemonDetailsResponse(
     @SerializedName("id") @Expose val id: Int,
     @SerializedName("name") @Expose val name: String,
     @SerializedName("cost") @Expose val cost: Double,
+    @SerializedName("sprites") @Expose val images: SpritesDto,
     @SerializedName("fling_power") @Expose val flingPower: Int,
     @SerializedName("attributes") @Expose val attributes: List<PokemonAttributeDto>,
-    @SerializedName("category") @Expose val categories: List<PokemonCategoryDto>,
+    @SerializedName("category") @Expose val categories: PokemonCategoryDto,
     @SerializedName("effect_entries") @Expose val effects: List<PokemonEffectDto>
 )

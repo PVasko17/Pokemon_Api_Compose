@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.stateIn
 import p.vasko.pokemon.compose.data.dataStores.PokemonNetworkDataStore
 import p.vasko.pokemon.compose.data.mapper.PokemonMapper
-import p.vasko.pokemon.compose.domain.entity.PokemonDetails
+import p.vasko.pokemon.compose.domain.entity.PokemonItemDetails
 import p.vasko.pokemon.compose.domain.entity.PokemonListItem
 import p.vasko.pokemon.compose.domain.repository.PokemonRepository
 import javax.inject.Inject
@@ -57,8 +57,8 @@ class PokemonRepositoryImpl @Inject constructor(
         pokemonUpdateListEvents.emit(page)
     }
 
-    override suspend fun getDetails(name: String): StateFlow<PokemonDetails?> = flow {
-        val result = networkDataStore.getPokemonDetails(name)
+    override fun getDetails(listItem: String): StateFlow<PokemonItemDetails?> = flow {
+        val result = networkDataStore.getPokemonDetails(listItem)
         emit(mapper.mapDetailsDtoToEntity(result))
     }.retry {
         delay(RETRY_TIMEOUT)

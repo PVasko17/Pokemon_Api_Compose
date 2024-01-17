@@ -38,6 +38,7 @@ import coil.compose.AsyncImage
 import p.vasko.pokemon.compose.domain.entity.PokemonListItem
 import p.vasko.pokemon.compose.presentation.getApplicationComponent
 import p.vasko.pokemon.compose.presentation.pokemonList.viewmodel.PokemonListViewModel
+import p.vasko.pokemon.compose.presentation.views.PokemonScreenProgressIndicator
 
 @Composable
 fun PokemonListScreen(
@@ -72,15 +73,7 @@ private fun PokemonListContent(
 
         ListScreenState.Initial -> Unit
         ListScreenState.Loading -> {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                CircularProgressIndicator(
-                    color = Color.Blue
-                )
-            }
+            PokemonScreenProgressIndicator()
         }
     }
 }

@@ -1,5 +1,6 @@
 package p.vasko.pokemon.compose.data.network
 
+import p.vasko.pokemon.compose.data.model.PokemonDetailsResponse
 import p.vasko.pokemon.compose.data.model.PokemonListResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,5 +11,5 @@ interface PokemonApi {
     suspend fun getPokemonList(@Query("limit") limit: Int, @Query("offset") offset: Int): PokemonListResponse
 
     @GET("item/{name}")
-    suspend fun getPokemonDetails(@Path("name") name: String)
+    suspend fun getPokemonDetails(@Path("name") name: String): PokemonDetailsResponse
 }

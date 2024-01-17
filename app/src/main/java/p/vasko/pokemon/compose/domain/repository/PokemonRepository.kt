@@ -9,6 +9,6 @@ interface PokemonRepository {
 
     suspend fun updatePokemonList(page: Int)
 
-    fun getDetails(name: String): PokemonDetails
+    suspend fun getDetails(name: String): StateFlow<PokemonDetails?>
 
 }

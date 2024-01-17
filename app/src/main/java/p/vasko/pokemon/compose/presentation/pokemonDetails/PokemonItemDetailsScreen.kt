@@ -1,11 +1,14 @@
 package p.vasko.pokemon.compose.presentation.pokemonDetails
 
+import android.text.Html
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -21,7 +24,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -83,15 +88,17 @@ private fun ItemDetailsContent(
     ) { paddingValues ->
         Column(
             modifier = Modifier
-                .padding(paddingValues)
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val itemDetails = currentState.details
 
             AsyncImage(
                 model = itemDetails.imageUrl,
                 contentDescription = "${itemDetails.name} icon",
-                contentScale = ContentScale.Inside,
-                modifier = Modifier.fillMaxWidth()
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .size(128.dp)
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = itemDetails.name)
@@ -114,9 +121,11 @@ private fun ItemDetailsContent(
 @Composable
 private fun EffectListItem(itemEffect: PokemonItemEffect) {
     Card {
-        Text(text = itemEffect.shortEffect, style = MaterialTheme.typography.titleMedium)
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(text = itemEffect.effect, style = MaterialTheme.typography.bodyMedium)
+        Column(modifier = Modifier.padding(8.dp)) {
+            Text(text = itemEffect.shortEffect, style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(text = Html.fromHtml(itemEffect.effect, Html.FROM_HTML_MODE_LEGACY).toString(), style = MaterialTheme.typography.bodyMedium)
+        }
     }
 }
 

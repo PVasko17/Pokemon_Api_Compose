@@ -7,8 +7,9 @@ import p.vasko.pokemon.compose.domain.entity.PokemonCategory
 import p.vasko.pokemon.compose.domain.entity.PokemonDetails
 import p.vasko.pokemon.compose.domain.entity.PokemonEffect
 import p.vasko.pokemon.compose.domain.entity.PokemonListItem
+import javax.inject.Inject
 
-class PokemonMapper {
+class PokemonMapper @Inject constructor() {
     companion object {
         private const val BASE_IMAGE_URL =
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items"

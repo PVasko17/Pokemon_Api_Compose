@@ -15,8 +15,9 @@ import p.vasko.pokemon.compose.data.mapper.PokemonMapper
 import p.vasko.pokemon.compose.domain.entity.PokemonDetails
 import p.vasko.pokemon.compose.domain.entity.PokemonListItem
 import p.vasko.pokemon.compose.domain.repository.PokemonRepository
+import javax.inject.Inject
 
-class PokemonRepositoryImpl(
+class PokemonRepositoryImpl @Inject constructor(
     private val networkDataStore: PokemonNetworkDataStore,
     private val mapper: PokemonMapper,
 ) : PokemonRepository {

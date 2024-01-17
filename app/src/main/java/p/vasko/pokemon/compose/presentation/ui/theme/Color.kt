@@ -1,4 +1,4 @@
-package p.vasko.pokemon.compose.ui.theme
+package p.vasko.pokemon.compose.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

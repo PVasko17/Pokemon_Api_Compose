@@ -5,9 +5,9 @@ import p.vasko.pokemon.compose.domain.entity.PokemonDetails
 import p.vasko.pokemon.compose.domain.entity.PokemonListItem
 
 interface PokemonRepository {
-    fun getPokemonList(): StateFlow<List<PokemonListItem>>
+    fun pokemonList(): StateFlow<List<PokemonListItem>>
 
-    fun updatePokemonList(page: Int)
+    suspend fun updatePokemonList(page: Int)
 
     fun getDetails(name: String): PokemonDetails
 

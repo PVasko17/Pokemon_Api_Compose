@@ -4,6 +4,8 @@ import android.app.Application
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import p.vasko.pokemon.compose.data.dataStores.PokemonDatabaseDataStore
+import p.vasko.pokemon.compose.data.dataStores.PokemonDatabaseDataStoreImpl
 import p.vasko.pokemon.compose.data.dataStores.PokemonNetworkDataStore
 import p.vasko.pokemon.compose.data.dataStores.PokemonNetworkDataStoreImpl
 import p.vasko.pokemon.compose.data.database.AppDatabase
@@ -22,6 +24,10 @@ interface DataModule {
     @ApplicationScope
     @Binds
     fun bindPokemonNetworkDataStore(impl: PokemonNetworkDataStoreImpl): PokemonNetworkDataStore
+
+    @ApplicationScope
+    @Binds
+    fun bindPokemonDatabaseDataStore(impl: PokemonDatabaseDataStoreImpl): PokemonDatabaseDataStore
 
     companion object {
         @ApplicationScope

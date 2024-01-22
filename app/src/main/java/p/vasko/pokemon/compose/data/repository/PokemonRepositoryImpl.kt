@@ -1,5 +1,6 @@
 package p.vasko.pokemon.compose.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -8,8 +9,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.lastOrNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.stateIn
+import p.vasko.pokemon.compose.data.dataStores.PokemonDatabaseDataStore
 import p.vasko.pokemon.compose.data.dataStores.PokemonNetworkDataStore
 import p.vasko.pokemon.compose.data.mapper.PokemonMapper
 import p.vasko.pokemon.compose.domain.entity.PokemonItemDetails
@@ -19,6 +23,7 @@ import javax.inject.Inject
 
 class PokemonRepositoryImpl @Inject constructor(
     private val networkDataStore: PokemonNetworkDataStore,
+    private val dbDataStore: PokemonDatabaseDataStore,
     private val mapper: PokemonMapper,
 ) : PokemonRepository {
 
@@ -32,9 +37,9 @@ class PokemonRepositoryImpl @Inject constructor(
 
     private val pokemonListFlow = flow {
         pokemonUpdateListEvents.emit(0)
-        pokemonUpdateListEvents.collect {
-            val result = networkDataStore.updatePokemonList(it)
-            _pokemonList.addAll(mapper.mapListDtoToEntity(result))
+        pokemonUpdateListEvents.collect { page ->
+            val currentPageList = fetchListData(page)
+            _pokemonList.addAll(currentPageList)
             emit(pokemonList)
         }
     }
@@ -42,6 +47,15 @@ class PokemonRepositoryImpl @Inject constructor(
             delay(RETRY_TIMEOUT)
             true
         }
+
+    private suspend fun fetchListData(page: Int): List<PokemonListItem> {
+        val dbValues = mapper.mapListDbModelToEntity(dbDataStore.updatePokemonList(page))
+        return dbValues.ifEmpty {
+            val result = networkDataStore.updatePokemonList(page)
+            dbDataStore.insertPokemonItems(mapper.mapListDtoToDbModel(result))
+            mapper.mapListDtoToEntity(result)
+        }
+    }
 
     override fun pokemonList(): StateFlow<List<PokemonListItem>> = pokemonListFlow
         .catch {
@@ -60,9 +74,6 @@ class PokemonRepositoryImpl @Inject constructor(
     override fun getDetails(listItem: String): StateFlow<PokemonItemDetails?> = flow {
         val result = networkDataStore.getPokemonDetails(listItem)
         emit(mapper.mapDetailsDtoToEntity(result))
-    }.retry {
-        delay(RETRY_TIMEOUT)
-        true
     }.stateIn(
         coroutineScope,
         SharingStarted.Lazily,

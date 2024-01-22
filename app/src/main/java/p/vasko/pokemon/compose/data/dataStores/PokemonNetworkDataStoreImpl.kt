@@ -9,8 +9,7 @@ class PokemonNetworkDataStoreImpl @Inject constructor(
     private val apiService: PokemonApi
 ): PokemonNetworkDataStore {
     override suspend fun updatePokemonList(page: Int): PokemonListResponse {
-        val offset = page * PAGE_SIZE + 1
-        return apiService.getPokemonList(PAGE_SIZE, offset)
+        return apiService.getPokemonList(PAGE_SIZE, calculateOffsetFromPage(page))
     }
 
     override suspend fun getPokemonDetails(name: String): PokemonDetailsResponse {

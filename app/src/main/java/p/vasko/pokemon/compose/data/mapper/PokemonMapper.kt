@@ -1,5 +1,6 @@
 package p.vasko.pokemon.compose.data.mapper
 
+import p.vasko.pokemon.compose.data.database.entities.PokemonListItemDbModel
 import p.vasko.pokemon.compose.data.model.PokemonDetailsResponse
 import p.vasko.pokemon.compose.data.model.PokemonListResponse
 import p.vasko.pokemon.compose.domain.entity.PokemonItemAttribute
@@ -21,6 +22,24 @@ class PokemonMapper @Inject constructor() {
             PokemonListItem(
                 name = it.name,
                 imageUrl = getImageUrl(it.name)
+            )
+        }
+    }
+
+    fun mapListDtoToDbModel(response: PokemonListResponse): List<PokemonListItemDbModel> {
+        return response.results.map {
+            PokemonListItemDbModel(
+                name = it.name,
+                imageUrl = getImageUrl(it.name)
+            )
+        }
+    }
+
+    fun mapListDbModelToEntity(list: List<PokemonListItemDbModel>): List<PokemonListItem> {
+        return list.map {
+            PokemonListItem(
+                name = it.name,
+                imageUrl = it.imageUrl
             )
         }
     }

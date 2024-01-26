@@ -1,11 +1,9 @@
 package p.vasko.pokemon.compose.presentation.pokemonDetails
 
 import android.text.Html
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,14 +24,12 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 import p.vasko.pokemon.compose.domain.entity.PokemonItemEffect
-import p.vasko.pokemon.compose.domain.entity.PokemonListItem
-import p.vasko.pokemon.compose.presentation.getApplicationComponent
 import p.vasko.pokemon.compose.presentation.pokemonDetails.viewmodel.PokemonItemDetailsViewModel
 import p.vasko.pokemon.compose.presentation.views.PokemonScreenProgressIndicator
 
@@ -42,12 +38,8 @@ fun PokemonItemDetailsScreen(
     listItem: String,
     onBackPressed: () -> Unit,
 ) {
-    val component = getApplicationComponent()
-        .getPokemonItemDetailsComponentFactory()
-        .create(listItem)
 
-    val viewModel: PokemonItemDetailsViewModel =
-        viewModel(factory = component.getViewModelFactory())
+    val viewModel: PokemonItemDetailsViewModel = koinViewModel { parametersOf(listItem) }
     val screenState = viewModel.screenState.collectAsState(initial = DetailsScreenState.Initial)
 
     ItemDetailsScreenContent(

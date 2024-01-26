@@ -1,6 +1,5 @@
 package p.vasko.pokemon.compose.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -9,8 +8,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.lastOrNull
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.stateIn
 import p.vasko.pokemon.compose.data.dataStores.PokemonDatabaseDataStore
@@ -19,9 +16,8 @@ import p.vasko.pokemon.compose.data.mapper.PokemonMapper
 import p.vasko.pokemon.compose.domain.entity.PokemonItemDetails
 import p.vasko.pokemon.compose.domain.entity.PokemonListItem
 import p.vasko.pokemon.compose.domain.repository.PokemonRepository
-import javax.inject.Inject
 
-class PokemonRepositoryImpl @Inject constructor(
+class PokemonRepositoryImpl(
     private val networkDataStore: PokemonNetworkDataStore,
     private val dbDataStore: PokemonDatabaseDataStore,
     private val mapper: PokemonMapper,

@@ -1,18 +1,24 @@
 package p.vasko.pokemon.compose.presentation
 
 import android.app.Application
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
-import p.vasko.pokemon.compose.di.ApplicationComponent
-import p.vasko.pokemon.compose.di.DaggerApplicationComponent
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import p.vasko.pokemon.compose.di.modules.dataModule
+import p.vasko.pokemon.compose.di.modules.viewModelModule
 
 class PokemonApplication : Application() {
-    val component: ApplicationComponent by lazy {
-        DaggerApplicationComponent.factory().create(this@PokemonApplication)
-    }
-}
 
-@Composable
-fun getApplicationComponent(): ApplicationComponent {
-    return (LocalContext.current.applicationContext as PokemonApplication).component
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin {
+            // Log Koin into Android logger
+            androidLogger()
+            // Reference Android context
+            androidContext(this@PokemonApplication)
+            // Load modules
+            modules(dataModule, viewModelModule)
+        }
+    }
 }

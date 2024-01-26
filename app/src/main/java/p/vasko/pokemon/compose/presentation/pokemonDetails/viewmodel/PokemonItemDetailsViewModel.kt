@@ -2,15 +2,13 @@ package p.vasko.pokemon.compose.presentation.pokemonDetails.viewmodel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.map
-import p.vasko.pokemon.compose.domain.entity.PokemonListItem
 import p.vasko.pokemon.compose.domain.useCase.PokemonDetailsUseCase
 import p.vasko.pokemon.compose.presentation.pokemonDetails.DetailsScreenState
-import javax.inject.Inject
 
-class PokemonItemDetailsViewModel @Inject constructor(
+class PokemonItemDetailsViewModel(
     pokemonListItem: String,
-    pokemonDetailsUseCase: PokemonDetailsUseCase
-): ViewModel() {
+    pokemonDetailsUseCase: PokemonDetailsUseCase,
+) : ViewModel() {
 
     val screenState = pokemonDetailsUseCase(pokemonListItem)
         .map {

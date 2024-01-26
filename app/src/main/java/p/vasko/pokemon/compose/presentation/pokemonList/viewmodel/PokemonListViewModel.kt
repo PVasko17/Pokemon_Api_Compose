@@ -12,12 +12,11 @@ import p.vasko.pokemon.compose.domain.useCase.PokemonListFlowUseCase
 import p.vasko.pokemon.compose.domain.useCase.UpdatePokemonListUseCase
 import p.vasko.pokemon.compose.extention.mergeWith
 import p.vasko.pokemon.compose.presentation.pokemonList.ListScreenState
-import javax.inject.Inject
 
-class PokemonListViewModel @Inject constructor(
+class PokemonListViewModel(
     pokemonListFlowUseCase: PokemonListFlowUseCase,
-    private val updatePokemonListUseCase: UpdatePokemonListUseCase
-): ViewModel() {
+    private val updatePokemonListUseCase: UpdatePokemonListUseCase,
+) : ViewModel() {
 
     private val _nextPage = MutableStateFlow(0)
 

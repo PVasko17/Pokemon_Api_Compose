@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -62,9 +62,7 @@ dependencies {
     implementation(libs.bundles.jetpackNavigation)
     implementation(libs.bundles.materialUi)
 
-    implementation(libs.dagger)
     implementation(libs.material3.android)
-    kapt (libs.dagger.compiler)
 
     implementation(libs.datastore.preferences)
     implementation(libs.browser)
@@ -76,7 +74,13 @@ dependencies {
     implementation(libs.lottie.compose)
 
     implementation (libs.bundles.room)
-    kapt (libs.room.compiler)
+    ksp (libs.room.compiler)
+
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
+
+//    implementation(libs.koin.annotations)
+//    ksp (libs.koin.ksp.compiler)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

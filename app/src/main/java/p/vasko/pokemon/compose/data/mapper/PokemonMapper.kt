@@ -1,5 +1,7 @@
 package p.vasko.pokemon.compose.data.mapper
 
+import org.koin.core.annotation.Single
+import p.vasko.pokemon.compose.data.database.entities.PokemonListItemDbModel
 import p.vasko.pokemon.compose.data.model.PokemonDetailsResponse
 import p.vasko.pokemon.compose.data.model.PokemonListResponse
 import p.vasko.pokemon.compose.domain.entity.PokemonItemAttribute
@@ -7,9 +9,9 @@ import p.vasko.pokemon.compose.domain.entity.PokemonItemCategory
 import p.vasko.pokemon.compose.domain.entity.PokemonItemDetails
 import p.vasko.pokemon.compose.domain.entity.PokemonItemEffect
 import p.vasko.pokemon.compose.domain.entity.PokemonListItem
-import javax.inject.Inject
 
-class PokemonMapper @Inject constructor() {
+@Single
+class PokemonMapper {
     companion object {
         private const val BASE_IMAGE_URL =
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items"
@@ -21,6 +23,24 @@ class PokemonMapper @Inject constructor() {
             PokemonListItem(
                 name = it.name,
                 imageUrl = getImageUrl(it.name)
+            )
+        }
+    }
+
+    fun mapListDtoToDbModel(response: PokemonListResponse): List<PokemonListItemDbModel> {
+        return response.results.map {
+            PokemonListItemDbModel(
+                name = it.name,
+                imageUrl = getImageUrl(it.name)
+            )
+        }
+    }
+
+    fun mapListDbModelToEntity(list: List<PokemonListItemDbModel>): List<PokemonListItem> {
+        return list.map {
+            PokemonListItem(
+                name = it.name,
+                imageUrl = it.imageUrl
             )
         }
     }

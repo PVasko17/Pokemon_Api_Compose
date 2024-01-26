@@ -1,8 +1,10 @@
 package p.vasko.pokemon.compose.data.dataStores
 
+import org.koin.core.annotation.Single
 import p.vasko.pokemon.compose.data.database.PokemonItemsListDao
 import p.vasko.pokemon.compose.data.database.entities.PokemonListItemDbModel
 
+@Single
 class PokemonDatabaseDataStoreImpl(
     private val itemsListDao: PokemonItemsListDao,
 ) : PokemonDatabaseDataStore {

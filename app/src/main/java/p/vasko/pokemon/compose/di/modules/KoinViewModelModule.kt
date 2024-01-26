@@ -7,6 +7,6 @@ import p.vasko.pokemon.compose.presentation.pokemonDetails.viewmodel.PokemonItem
 import p.vasko.pokemon.compose.presentation.pokemonList.viewmodel.PokemonListViewModel
 
 val viewModelModule = module {
-    viewModelOf(::PokemonListViewModel)
-    viewModel { params -> PokemonItemDetailsViewModel(params.get(), get()) }
+//    viewModelOf(::PokemonListViewModel)
+//    viewModel { params -> PokemonItemDetailsViewModel(params.get(), get()) }
 }

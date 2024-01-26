@@ -8,11 +8,13 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 import p.vasko.pokemon.compose.domain.useCase.PokemonListFlowUseCase
 import p.vasko.pokemon.compose.domain.useCase.UpdatePokemonListUseCase
 import p.vasko.pokemon.compose.extention.mergeWith
 import p.vasko.pokemon.compose.presentation.pokemonList.ListScreenState
 
+@KoinViewModel
 class PokemonListViewModel(
     pokemonListFlowUseCase: PokemonListFlowUseCase,
     private val updatePokemonListUseCase: UpdatePokemonListUseCase,

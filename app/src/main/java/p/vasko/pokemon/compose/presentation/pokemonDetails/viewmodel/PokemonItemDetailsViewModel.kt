@@ -2,11 +2,14 @@ package p.vasko.pokemon.compose.presentation.pokemonDetails.viewmodel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.map
+import org.koin.android.annotation.KoinViewModel
+import org.koin.core.annotation.InjectedParam
 import p.vasko.pokemon.compose.domain.useCase.PokemonDetailsUseCase
 import p.vasko.pokemon.compose.presentation.pokemonDetails.DetailsScreenState
 
+@KoinViewModel
 class PokemonItemDetailsViewModel(
-    pokemonListItem: String,
+    @InjectedParam pokemonListItem: String,
     pokemonDetailsUseCase: PokemonDetailsUseCase,
 ) : ViewModel() {
 

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.stateIn
+import org.koin.core.annotation.Single
 import p.vasko.pokemon.compose.data.dataStores.PokemonDatabaseDataStore
 import p.vasko.pokemon.compose.data.dataStores.PokemonNetworkDataStore
 import p.vasko.pokemon.compose.data.mapper.PokemonMapper
@@ -17,6 +18,7 @@ import p.vasko.pokemon.compose.domain.entity.PokemonItemDetails
 import p.vasko.pokemon.compose.domain.entity.PokemonListItem
 import p.vasko.pokemon.compose.domain.repository.PokemonRepository
 
+@Single
 class PokemonRepositoryImpl(
     private val networkDataStore: PokemonNetworkDataStore,
     private val dbDataStore: PokemonDatabaseDataStore,

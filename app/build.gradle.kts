@@ -49,6 +49,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+//    ksp {
+//        arg("KOIN_CONFIG_CHECK","true")
+//    }
 }
 
 dependencies {
@@ -79,8 +83,8 @@ dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
 
-//    implementation(libs.koin.annotations)
-//    ksp (libs.koin.ksp.compiler)
+    implementation(libs.koin.annotations)
+    ksp (libs.koin.ksp.compiler)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

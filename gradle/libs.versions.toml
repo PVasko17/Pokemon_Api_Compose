@@ -1,5 +1,7 @@
 [versions]
 datastorePreferences = "1.0.0"
+hiltAndroid = "2.44"
+hiltNavigationCompose = "1.1.0"
 libphonenumber = "8.12.56"
 lottieCompose = "6.2.0"
 retrofit = "2.9.0"
@@ -23,6 +25,9 @@ material3Android = "1.2.0-beta02"
 
 [libraries]
 datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 libphonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "libphonenumber" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
@@ -78,3 +83,4 @@ jetpackNavigation = ["nav-compose", "nav-ui", "nav-features"]
 materialUi = ["constraint-layout"]
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling", "compose-ui-util"]
 room = ["room-ktx", "room-runtime"]
+hilt = ["hilt-android", "hilt-navigation-compose"]

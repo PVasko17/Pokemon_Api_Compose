@@ -1,8 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
     id("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
+    id ("com.google.devtools.ksp")
 }
 
 android {
@@ -71,9 +72,10 @@ dependencies {
     implementation(libs.bundles.jetpackNavigation)
     implementation(libs.bundles.materialUi)
 
-    implementation(libs.dagger)
     implementation(libs.material3.android)
-    kapt (libs.dagger.compiler)
+
+    implementation(libs.bundles.hilt)
+    ksp(libs.hilt.android.compiler)
 
     implementation(libs.datastore.preferences)
     implementation(libs.browser)
@@ -85,7 +87,7 @@ dependencies {
     implementation(libs.lottie.compose)
 
     implementation (libs.bundles.room)
-    kapt (libs.room.compiler)
+    ksp (libs.room.compiler)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

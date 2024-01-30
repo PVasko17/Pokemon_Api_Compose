@@ -2,6 +2,7 @@ package p.vasko.pokemon.compose.presentation.pokemonList.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
@@ -14,6 +15,7 @@ import p.vasko.pokemon.compose.extention.mergeWith
 import p.vasko.pokemon.compose.presentation.pokemonList.ListScreenState
 import javax.inject.Inject
 
+@HiltViewModel
 class PokemonListViewModel @Inject constructor(
     pokemonListFlowUseCase: PokemonListFlowUseCase,
     private val updatePokemonListUseCase: UpdatePokemonListUseCase

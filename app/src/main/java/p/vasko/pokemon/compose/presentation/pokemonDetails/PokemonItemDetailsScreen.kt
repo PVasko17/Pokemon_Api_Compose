@@ -1,7 +1,6 @@
 package p.vasko.pokemon.compose.presentation.pokemonDetails
 
 import android.text.Html
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -26,14 +25,11 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import p.vasko.pokemon.compose.domain.entity.PokemonItemEffect
-import p.vasko.pokemon.compose.domain.entity.PokemonListItem
-import p.vasko.pokemon.compose.presentation.getApplicationComponent
 import p.vasko.pokemon.compose.presentation.pokemonDetails.viewmodel.PokemonItemDetailsViewModel
 import p.vasko.pokemon.compose.presentation.views.PokemonScreenProgressIndicator
 
@@ -42,12 +38,10 @@ fun PokemonItemDetailsScreen(
     listItem: String,
     onBackPressed: () -> Unit,
 ) {
-    val component = getApplicationComponent()
-        .getPokemonItemDetailsComponentFactory()
-        .create(listItem)
-
-    val viewModel: PokemonItemDetailsViewModel =
-        viewModel(factory = component.getViewModelFactory())
+    val viewModel =
+        hiltViewModel<PokemonItemDetailsViewModel, PokemonItemDetailsViewModel.PokemonItemDetailsViewModelFactory> {
+            it.create(listItem)
+        }
     val screenState = viewModel.screenState.collectAsState(initial = DetailsScreenState.Initial)
 
     ItemDetailsScreenContent(
@@ -88,7 +82,8 @@ private fun ItemDetailsContent(
     ) { paddingValues ->
         Column(
             modifier = Modifier
-                .padding(paddingValues),
+                .padding(paddingValues)
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val itemDetails = currentState.details
@@ -107,7 +102,8 @@ private fun ItemDetailsContent(
                 contentPadding = PaddingValues(
                     vertical = 8.dp,
                     horizontal = 4.dp
-                )
+                ),
+                modifier = Modifier.fillMaxWidth()
             ) {
                 items(items = itemDetails.effects, key = { it.shortEffect.hashCode() }) {
                     EffectListItem(it)
@@ -120,11 +116,14 @@ private fun ItemDetailsContent(
 
 @Composable
 private fun EffectListItem(itemEffect: PokemonItemEffect) {
-    Card {
+    Card(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(8.dp)) {
             Text(text = itemEffect.shortEffect, style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = Html.fromHtml(itemEffect.effect, Html.FROM_HTML_MODE_LEGACY).toString(), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                text = Html.fromHtml(itemEffect.effect, Html.FROM_HTML_MODE_LEGACY).toString(),
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
 }

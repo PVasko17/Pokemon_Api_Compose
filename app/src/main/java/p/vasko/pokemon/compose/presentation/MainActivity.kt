@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import dagger.hilt.android.AndroidEntryPoint
 import p.vasko.pokemon.compose.navigation.AppNavGraph
 import p.vasko.pokemon.compose.navigation.rememberNavigationState
 import p.vasko.pokemon.compose.presentation.pokemonDetails.PokemonItemDetailsScreen
 import p.vasko.pokemon.compose.presentation.pokemonList.PokemonListScreen
 import p.vasko.pokemon.compose.presentation.ui.theme.PokemonApiComposeTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

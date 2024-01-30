@@ -2,7 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
+//    id("dagger.hilt.android.plugin")
+    id("com.google.dagger.hilt.android")
     id ("com.google.devtools.ksp")
 }
 
@@ -59,6 +60,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    hilt {
+        enableAggregatingTask = true
+    }
 }
 
 dependencies {
@@ -75,6 +79,7 @@ dependencies {
     implementation(libs.material3.android)
 
     implementation(libs.bundles.hilt)
+    implementation(libs.dagger)
     ksp(libs.hilt.android.compiler)
 
     implementation(libs.datastore.preferences)

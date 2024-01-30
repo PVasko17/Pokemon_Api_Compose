@@ -1,14 +1,17 @@
 package p.vasko.pokemon.compose.presentation.pokemonDetails.viewmodel
 
 import androidx.lifecycle.ViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
-import p.vasko.pokemon.compose.domain.entity.PokemonListItem
 import p.vasko.pokemon.compose.domain.useCase.PokemonDetailsUseCase
 import p.vasko.pokemon.compose.presentation.pokemonDetails.DetailsScreenState
-import javax.inject.Inject
 
-class PokemonItemDetailsViewModel @Inject constructor(
-    pokemonListItem: String,
+@HiltViewModel(assistedFactory = PokemonItemDetailsViewModel.PokemonItemDetailsViewModelFactory::class)
+class PokemonItemDetailsViewModel @AssistedInject constructor(
+    @Assisted pokemonListItem: String,
     pokemonDetailsUseCase: PokemonDetailsUseCase
 ): ViewModel() {
 
@@ -23,4 +26,9 @@ class PokemonItemDetailsViewModel @Inject constructor(
                 DetailsScreenState.Loading
             }
         }
+
+    @AssistedFactory
+    interface PokemonItemDetailsViewModelFactory {
+        fun create(pokemonListItem: String): PokemonItemDetailsViewModel
+    }
 }

@@ -33,10 +33,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import p.vasko.pokemon.compose.domain.entity.PokemonListItem
-import p.vasko.pokemon.compose.presentation.getApplicationComponent
 import p.vasko.pokemon.compose.presentation.pokemonList.viewmodel.PokemonListViewModel
 import p.vasko.pokemon.compose.presentation.views.PokemonScreenProgressIndicator
 
@@ -44,9 +44,7 @@ import p.vasko.pokemon.compose.presentation.views.PokemonScreenProgressIndicator
 fun PokemonListScreen(
     onPokemonClickListener: (PokemonListItem) -> Unit
 ) {
-
-    val viewModelFactory = getApplicationComponent().getViewModelFactory()
-    val viewModel: PokemonListViewModel = viewModel(factory = viewModelFactory)
+    val viewModel = hiltViewModel<PokemonListViewModel>()
 
     val screenState = viewModel.screenState.collectAsState(initial = ListScreenState.Initial)
 
